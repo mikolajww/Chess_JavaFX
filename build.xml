@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Chess">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="C:/Users/Mikolaj/Desktop/eclipse/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="JavaFX SDK.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}plugins/org.eclipse.fx.ide.css.jfx8_2.4.0.201605112122.jar"/>
+    </path>
+    <path id="Chess.classpath">
+        <pathelement location="bin"/>
+        <path refid="JavaFX SDK.libraryclasspath"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/cloning-1.9.3.jar"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/objenesis-2.1.jar"/>
+    </path>
+    <path id="run.Game.classpath">
+        <path refid="Chess.classpath"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/cloning-1.9.3.jar"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/objenesis-2.1.jar"/>
+    </path>
+    <path id="run.Game.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/cloning-1.9.3.jar"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/objenesis-2.1.jar"/>
+    </path>
+    <path id="run.Main.classpath">
+        <path refid="Chess.classpath"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/cloning-1.9.3.jar"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/objenesis-2.1.jar"/>
+    </path>
+    <path id="run.Main.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/cloning-1.9.3.jar"/>
+        <pathelement location="C:/Users/Mikolaj/Desktop/objenesis-2.1.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+                <exclude name="images/"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src/images">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <src path="src/images"/>
+            <exclude name="images/"/>
+            <classpath refid="Chess.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="Game">
+        <java classname="application.Game" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx2048m"/>
+            <classpath refid="run.Game.classpath"/>
+            <bootclasspath>
+                <path refid="run.Game.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+    <target name="Main">
+        <java classname="application.Main" failonerror="true" fork="yes">
+            <classpath refid="run.Main.classpath"/>
+            <bootclasspath>
+                <path refid="run.Main.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+</project>
